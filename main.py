@@ -76,15 +76,15 @@ class folder_gui:
         trim = self.trim_var.get()
         trimester_path = os.path.join(new_folder_path, stim_id, trim)
         clarius_images = os.path.join(" " + "Annotated Clarius Images", "Unlabelled Clarius Images")
-        clarius_videos = os.path.join(" " + "Annotated Clarius Images", "Clarius Videos")
         os.makedirs(os.path.join(trimester_path, stim_id + clarius_images))
-        os.makedirs(os.path.join(trimester_path, stim_id + clarius_videos))
         os.makedirs(os.path.join(trimester_path, stim_id + " " + "RF Data"))
         if trim in ["1st Trim", "2nd Trim", "3rd Trim"]:
             os.makedirs(os.path.join(trimester_path, stim_id + " " + "Annotated GE Images"))
         if trim == "Ex Vivo Plac":
             os.makedirs(os.path.join(trimester_path, stim_id + " " + "Histology Photos"))
             os.makedirs(os.path.join(trimester_path, stim_id + " " + "Study Photos"))
+            clarius_videos = os.path.join(" " + "Annotated Clarius Images", "Clarius Videos")
+            os.makedirs(os.path.join(trimester_path, stim_id + clarius_videos))
 
     # Check if any values are left blank in the GUI when recording participant data
     def __check_stim_info(self):
