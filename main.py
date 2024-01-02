@@ -10,7 +10,6 @@ class folder_gui:
         self.stim_info = {}
         self.__define_input_box()
         self.__create_fields()
-        # self.__grey_out(self.calibration_cb, self.cal_lib_browse)
         self.window.mainloop()
 
     # Shape, size, and title of the window
@@ -36,7 +35,7 @@ class folder_gui:
 
         self.trim_var = tk.StringVar(self.window)
         self.trim_var.set("Select an Option")
-        trim_list = ["1st Trim", "2nd Trim", "3rd Trim"]
+        trim_list = ["1st Trim", "2nd Trim", "3rd Trim", "Ex Vivo Plac"]
         self.trimester = tk.OptionMenu(self.window, self.trim_var, *trim_list)
         self.trimester.grid(column=1, row=trim_row, pady=15)
 
@@ -76,9 +75,16 @@ class folder_gui:
         stim_id = self.mat_id.get_entry().upper()
         trim = self.trim_var.get()
         trimester_path = os.path.join(new_folder_path, stim_id, trim)
-        os.makedirs(os.path.join(trimester_path, stim_id + " Annotated Clarius Images"))
-        os.makedirs(os.path.join(trimester_path, stim_id + " Annotated GE Images"))
-        os.makedirs(os.path.join(trimester_path, stim_id + " RF Data"))
+        clarius_images = os.path.join(" " + "Annotated Clarius Images", "Unlabelled Clarius Images")
+        clarius_videos = os.path.join(" " + "Annotated Clarius Images", "Clarius Videos")
+        os.makedirs(os.path.join(trimester_path, stim_id + clarius_images))
+        os.makedirs(os.path.join(trimester_path, stim_id + clarius_videos))
+        os.makedirs(os.path.join(trimester_path, stim_id + " " + "RF Data"))
+        if trim in ["1st Trim", "2nd Trim", "3rd Trim"]:
+            os.makedirs(os.path.join(trimester_path, stim_id + " " + "Annotated GE Images"))
+        if trim == "Ex Vivo Plac":
+            os.makedirs(os.path.join(trimester_path, stim_id + " " + "Histology Photos"))
+            os.makedirs(os.path.join(trimester_path, stim_id + " " + "Study Photos"))
 
     # Check if any values are left blank in the GUI when recording participant data
     def __check_stim_info(self):
